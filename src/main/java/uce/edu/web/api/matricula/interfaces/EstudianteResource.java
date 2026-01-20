@@ -20,39 +20,52 @@ public class EstudianteResource {
 
     @GET
     @Path("/todos")
-    public List<Estudiante> listarTodos(){
+    public List<Estudiante> listarTodos() {
 
         return estudianteService.listarTodos();
     }
 
     @GET
     @Path("/consultarPorId/{id}")
-    public Estudiante consultarPorId(@PathParam("id") Integer id){
+    public Estudiante consultarPorId(@PathParam("id") Integer id) {
         return this.estudianteService.consultarPorId(id);
     }
 
     @POST
     @Path("/crear")
-    public void guardar(Estudiante estudiante){
+    public void guardar(Estudiante estudiante) {
         this.estudianteService.crear(estudiante);
     }
 
     @PUT
     @Path("/actualizar/{id}")
-    public void actualizar(@PathParam("id") Integer id,Estudiante estudiante){
+    public void actualizar(@PathParam("id") Integer id, Estudiante estudiante) {
         this.estudianteService.actualizar(id, estudiante);
     }
 
     @PATCH
     @Path("/actualizarParcial/{id}")
-    public void actualizarParcial(@PathParam("id") Integer id,Estudiante estudiante){
+    public void actualizarParcial(@PathParam("id") Integer id, Estudiante estudiante) {
         this.estudianteService.actualizarParcial(id, estudiante);
     }
 
     @DELETE
     @Path("/borrar/{id}")
-    public void borrar(@PathParam("id") Integer id){
+    public void borrar(@PathParam("id") Integer id) {
         this.estudianteService.eliminar(id);
+    }
+
+    // *********************************************************************** */
+    @GET
+    @Path("/consultarPorNombre/{nombre}")
+    public List<Estudiante> consultarPorNombre(@PathParam("nombre") String nombre) {
+        return this.estudianteService.buscarPorNombre(nombre);
+    }
+
+    @GET
+    @Path("/consultarPorInicial/{inicial}")
+    public List<Estudiante> consultarPorInicial(@PathParam("inicial") String inicial) {
+        return this.estudianteService.buscarPorInicial(inicial);
     }
 
 }
