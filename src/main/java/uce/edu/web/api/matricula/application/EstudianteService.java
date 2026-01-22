@@ -66,8 +66,8 @@ public class EstudianteService {
     }
     //metodo panache para optimizar codigo
     public List<Estudiante> buscarPorProvincia(String provincia,String genero) {
-        return estudianteRepository.find("provincia", provincia).list();
-        //return estudianteRepository.find("provincia = ?1 and genero =?2",provincia,genero).list();
+        //return estudianteRepository.find("provincia", provincia).list();
+        return estudianteRepository.find("provincia = ?1 and genero =?2",provincia,genero).list();
     }
 
 
