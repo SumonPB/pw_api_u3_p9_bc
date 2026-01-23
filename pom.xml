@@ -72,7 +72,11 @@
         <artifactId>rest-assured</artifactId>
         <scope>test</scope>
     </dependency>
-
+           <!-- Nuevas -->
+      <dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-resteasy-jaxb</artifactId>
+    </dependency>     
 </dependencies>
 
 
