@@ -23,7 +23,7 @@ public class MateriaResource {
 
     @GET
     @Path("")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)//listar todos
     public List<Materia> listarTodos() {
 
         return materiaService.listarTodos();
@@ -39,25 +39,27 @@ public class MateriaResource {
     @Path("")
     public Response guardar(Materia materia) {
         this.materiaService.crear(materia);
-        return Response.status(Response.Status.CREATED).entity(materia).build();
+        return Response.status(Response.Status.CREATED).entity(materia).build(); //guardar
     }
 
     @PUT
     @Path("/{id}")
-    public void actualizar(@PathParam("id") Integer id, Materia materia) {
+    public Response actualizar(@PathParam("id") Integer id, Materia materia) { //actualizar
         this.materiaService.actualizar(id, materia);
+        return Response.status(Response.Status.OK).entity(materia).build();
     }
 
     @PATCH
     @Path("/{id}")
-    public Response actualizarParcial(@PathParam("id") Integer id, Materia materia) {
+    public Response actualizarParcial(@PathParam("id") Integer id, Materia materia) { //parcial
         this.materiaService.actualizarParcial(id, materia);
         return Response.status(209).entity(materia).build();
     }
 
     @DELETE
     @Path("/{id}")
-    public void borrar(@PathParam("id") Integer id) {
+    public Response borrar(@PathParam("id") Integer id) {
         this.materiaService.eliminar(id);
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 }
