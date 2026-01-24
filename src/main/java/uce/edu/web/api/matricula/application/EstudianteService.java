@@ -31,13 +31,13 @@ public class EstudianteService {
 
     @Transactional
     public void crear(EstudianteRepresentation estu) {
-         this.estudianteRepository.persist(this.mapperToRE(estu));
+        this.estudianteRepository.persist(this.mapperToRE(estu));
     }
 
     @Transactional
     public void actualizar(Integer id, EstudianteRepresentation estudiante) {
 
-        Estudiante est =this.mapperToRE(this.consultarPorId(id)) ;
+        Estudiante est = estudianteRepository.findById(id.longValue());
         est.setApellido(estudiante.getApellido());
         est.setNombre(estudiante.getNombre());
         est.setFechaNacimiento(estudiante.getFechaNacimiento());
@@ -45,8 +45,8 @@ public class EstudianteService {
     }
 
     @Transactional
-    public void actualizarParcial(Integer id, Estudiante estudiante) {
-        Estudiante est =this.mapperToRE(this.consultarPorId(id));
+    public void actualizarParcial(Integer id, EstudianteRepresentation estudiante) {
+        Estudiante est = estudianteRepository.findById(id.longValue());
         if (estudiante.getNombre() != null) {
             est.setApellido(estudiante.getApellido());
         }
@@ -64,22 +64,40 @@ public class EstudianteService {
         estudianteRepository.deleteById(id.longValue());
     }
 
-    public List<Estudiante> buscarPorNombre(String nombre) {
-        return estudianteRepository.buscarPorNombre(nombre);
+    public List<EstudianteRepresentation> buscarPorNombre(String nombre) {
+        List<Estudiante> list = estudianteRepository.buscarPorNombre(nombre);
+        List<EstudianteRepresentation> list2 = new ArrayList<>();
+        for (Estudiante estudiante : list) {
+            list2.add(this.mapperToER(estudiante));
+        }
+        return list2;
     }
 
-    public List<Estudiante> buscarPorInicial(String letra) {
-        return estudianteRepository.buscarPorInicial(letra);
+    public List<EstudianteRepresentation> buscarPorInicial(String letra) {
+        List<Estudiante> list = estudianteRepository.buscarPorInicial(letra);
+        List<EstudianteRepresentation> list2 = new ArrayList<>();
+        for (Estudiante estudiante : list) {
+            list2.add(this.mapperToER(estudiante));
+        }
+        return list2;
     }
-    //metodo panache para optimizar codigo
-    public List<Estudiante> buscarPorProvincia(String provincia,String genero) {
-        //return estudianteRepository.find("provincia", provincia).list();
-        return estudianteRepository.find("provincia = ?1 and genero =?2",provincia,genero).list();
+
+    // metodo panache para optimizar codigo
+    public List<EstudianteRepresentation> buscarPorProvincia(String provincia, String genero) {
+        // return estudianteRepository.find("provincia", provincia).list();
+        List<Estudiante> list = estudianteRepository.find("provincia = ?1 and genero =?2", provincia, genero).list();
+        List<EstudianteRepresentation> list2 = new ArrayList<>();
+        for (Estudiante estudiante : list) {
+            list2.add(this.mapperToER(estudiante));
+        }
+        return list2;
     }
-    //cast
-//*********************************************************************************************************** */
-//estudiante a estudianteRepresentation
-    private EstudianteRepresentation mapperToER(Estudiante estudiante){
+
+    // cast
+    // ***********************************************************************************************************
+    // */
+    // estudiante a estudianteRepresentation
+    private EstudianteRepresentation mapperToER(Estudiante estudiante) {
         EstudianteRepresentation estuR = new EstudianteRepresentation();
         estuR.setId(estudiante.getId());
         estuR.setApellido(estudiante.getApellido());
@@ -90,8 +108,9 @@ public class EstudianteService {
 
         return estuR;
     }
-//estudianteRepresentation a estudiante
-    private Estudiante mapperToRE(EstudianteRepresentation estudianteR){
+
+    // estudianteRepresentation a estudiante
+    private Estudiante mapperToRE(EstudianteRepresentation estudianteR) {
         Estudiante estu = new Estudiante();
         estu.setId(estudianteR.getId());
         estu.setApellido(estudianteR.getApellido());

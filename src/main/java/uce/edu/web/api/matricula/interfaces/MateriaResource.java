@@ -14,6 +14,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import uce.edu.web.api.matricula.application.MateriaService;
+import uce.edu.web.api.matricula.application.representation.MateriaRepresentation;
 import uce.edu.web.api.matricula.domain.Materia;
 
 @Path("/materias")
@@ -23,35 +24,35 @@ public class MateriaResource {
 
     @GET
     @Path("")
-    @Produces(MediaType.APPLICATION_JSON)//listar todos
-    public List<Materia> listarTodos() {
+    @Produces(MediaType.APPLICATION_JSON) // listar todos
+    public List<MateriaRepresentation> listarTodos() {
 
         return materiaService.listarTodos();
     }
 
     @GET
     @Path("/{id}")
-    public Materia consultarPorId(@PathParam("id") Integer id) {
+    public MateriaRepresentation consultarPorId(@PathParam("id") Integer id) {
         return this.materiaService.consultarPorId(id);
     }
 
     @POST
     @Path("")
-    public Response guardar(Materia materia) {
+    public Response guardar(MateriaRepresentation materia) {
         this.materiaService.crear(materia);
-        return Response.status(Response.Status.CREATED).entity(materia).build(); //guardar
+        return Response.status(Response.Status.CREATED).entity(materia).build(); // guardar
     }
 
     @PUT
     @Path("/{id}")
-    public Response actualizar(@PathParam("id") Integer id, Materia materia) { //actualizar
+    public Response actualizar(@PathParam("id") Integer id, MateriaRepresentation materia) { // actualizar
         this.materiaService.actualizar(id, materia);
         return Response.status(Response.Status.OK).entity(materia).build();
     }
 
     @PATCH
     @Path("/{id}")
-    public Response actualizarParcial(@PathParam("id") Integer id, Materia materia) { //parcial
+    public Response actualizarParcial(@PathParam("id") Integer id, MateriaRepresentation materia) { // parcial
         this.materiaService.actualizarParcial(id, materia);
         return Response.status(209).entity(materia).build();
     }
