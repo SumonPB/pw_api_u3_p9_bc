@@ -1,7 +1,7 @@
 package uce.edu.web.api.matricula.application.representation;
 
 
-public class HIjoRepresentation {
+public class HijoRepresentation {
 
 
     private Integer id;
