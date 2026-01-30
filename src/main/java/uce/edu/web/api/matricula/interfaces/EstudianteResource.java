@@ -33,7 +33,7 @@ public class EstudianteResource {
     private HiijoService hiijoService;
 
     @Context
-    private UriInfo uriInfo; //obtener la url con la que se trabaja de manera dinamica
+    private UriInfo uriInfo; // obtener la url con la que se trabaja de manera dinamica
 
     @GET
     @Path("")
@@ -41,7 +41,7 @@ public class EstudianteResource {
     public List<EstudianteRepresentation> listarTodos() {
         System.out.println("LISTAR TODOS XXXXX");
         List<EstudianteRepresentation> list = new ArrayList<>();
-        for(EstudianteRepresentation er : estudianteService.listarTodos()){
+        for (EstudianteRepresentation er : estudianteService.listarTodos()) {
             this.construirLinks(er);
             list.add(er);
         }
@@ -118,20 +118,19 @@ public class EstudianteResource {
         return this.hiijoService.buscarPorIdEstudiante(id);
     }
 
-    private EstudianteRepresentation construirLinks(EstudianteRepresentation er){
+    private EstudianteRepresentation construirLinks(EstudianteRepresentation er) {
         String self = this.uriInfo.getBaseUriBuilder()
-                            .path(EstudianteResource.class)
-                                .path(String.valueOf(er.getId()))
-                                .build().toString(); //obtener la url de base
-        
-        //construccion urls hijos
+                .path(EstudianteResource.class)
+                .path(String.valueOf(er.getId()))
+                .build().toString(); // obtener la url de base
+
+        // construccion urls hijos
         String hijos = this.uriInfo.getBaseUriBuilder()
-        .path(EstudianteResource.class)
-        .path(String.valueOf(er.getId()))
-        .path("hijos").build().toString();
+                .path(EstudianteResource.class)
+                .path(String.valueOf(er.getId()))
+                .path("hijos").build().toString();
 
-
-    er.setLink(List.of(new LinkDto(self,"self"),new LinkDto(hijos,"hijos"))); //enviar la url y el string selg
-    return er;
+        er.setLink(List.of(new LinkDto(self, "self"), new LinkDto(hijos, "hijos"))); // enviar la url y el string selg
+        return er;
     }
 }

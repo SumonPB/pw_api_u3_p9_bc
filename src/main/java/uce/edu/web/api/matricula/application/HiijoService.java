@@ -14,18 +14,17 @@ import uce.edu.web.api.matricula.infraestructure.HijoRepository;
 public class HiijoService {
     @Inject
     private HijoRepository hijoRepository;
-    
-    public List<HijoRepresentation> buscarPorIdEstudiante(Integer idEstudiante){
+
+    public List<HijoRepresentation> buscarPorIdEstudiante(Integer idEstudiante) {
         List<HijoRepresentation> lista = new ArrayList<>();
-        for(Hijo h: this.hijoRepository.buscarPorIdEstudiante(idEstudiante)){
+        for (Hijo h : this.hijoRepository.buscarPorIdEstudiante(idEstudiante)) {
             lista.add(this.mapperToHijoR(h));
         }
 
         return lista;
     }
 
-    
-    private HijoRepresentation mapperToHijoR(Hijo hijo){
+    private HijoRepresentation mapperToHijoR(Hijo hijo) {
         HijoRepresentation hr = new HijoRepresentation();
         hr.setId(hijo.getId());
         hr.setNombre(hijo.getNombre());
