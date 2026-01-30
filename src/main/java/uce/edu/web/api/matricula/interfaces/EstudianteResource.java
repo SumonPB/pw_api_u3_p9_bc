@@ -25,6 +25,7 @@ import uce.edu.web.api.matricula.application.representation.HijoRepresentation;
 import uce.edu.web.api.matricula.application.representation.LinkDto;
 
 @Path("/estudiantes")
+
 public class EstudianteResource {
     @Inject
     private EstudianteService estudianteService;
