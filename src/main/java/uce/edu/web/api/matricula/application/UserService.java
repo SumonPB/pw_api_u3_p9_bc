@@ -6,6 +6,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
 import uce.edu.web.api.matricula.application.representation.UserRepresentation;
+import uce.edu.web.api.matricula.application.representation.Token;
 import uce.edu.web.api.matricula.domain.User;
 import uce.edu.web.api.matricula.infraestructure.UserRepository;
 
@@ -33,14 +34,17 @@ public class UserService {
 
     // metodo para validar credenciales usando bcrypt y buscando el usuario por
     // nombre
-    public Boolean validarCredenciales(String username, String password) {
+    public Token validarCredenciales(String username, String password) {
         User user = userRepository.buscarPorNombre(username);
-
+        Token token = new Token();
         if (user == null) {
-
-            return false;
+            token.setIsValid(false);
+            token.setRole("none");
+            return token;
         }
-        return BcryptUtil.matches(password, user.getPassword());
+        token.setIsValid(BcryptUtil.matches(password, user.getPassword()));
+        token.setRole(user.getRole());
+        return token;
     }
 
     // ********************************************************************* */

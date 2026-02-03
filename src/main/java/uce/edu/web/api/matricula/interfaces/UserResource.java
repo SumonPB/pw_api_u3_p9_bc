@@ -11,6 +11,7 @@ import jakarta.ws.rs.core.Response;
 import uce.edu.web.api.matricula.application.UserService;
 import uce.edu.web.api.matricula.application.representation.LoginRequest;
 import uce.edu.web.api.matricula.application.representation.UserRepresentation;
+import uce.edu.web.api.matricula.application.representation.Token;
 
 //clase recurso usuario para exponer los servicios REST y validar en la api AUTH
 //se envia un login request con username y password para validar las credenciales en la base de datos
@@ -35,12 +36,10 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     @PermitAll
     public Response validar(LoginRequest request) {
-
-        boolean ok = userService.validarCredenciales(
+        Token token = userService.validarCredenciales(
                 request.username,
                 request.password);
-
-        return Response.ok(ok).build();
+        return Response.ok(token).build();
     }
 
 }
