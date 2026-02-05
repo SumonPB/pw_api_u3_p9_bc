@@ -53,7 +53,7 @@ public class UserService {
         user.setId(userRepresentation.getId());
         user.setUsername(userRepresentation.getUsername());
         user.setPassword(BcryptUtil.bcryptHash(userRepresentation.getPassword()));
-        user.setRole("admin");
+        user.setRole(userRepresentation.getRole());
         return user;
 
     }
@@ -63,7 +63,7 @@ public class UserService {
         userRepresentation.setId(user.getId());
         userRepresentation.setUsername(user.getUsername());
         userRepresentation.setPassword(user.getPassword());
-        userRepresentation.setRole("admin");
+        userRepresentation.setRole(user.getRole());
         return userRepresentation;
 
     }

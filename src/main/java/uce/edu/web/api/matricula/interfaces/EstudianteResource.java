@@ -40,7 +40,7 @@ public class EstudianteResource {
     @GET
     @Path("")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed("admin") // permisos para acceder al usuario
+    @RolesAllowed({"admin","user","docente"}) // permisos para acceder al usuario///para varios roles se usa llaves y comas
     public List<EstudianteRepresentation> listarTodos() {
         System.out.println("LISTAR TODOS XXXXX");
         List<EstudianteRepresentation> list = new ArrayList<>();

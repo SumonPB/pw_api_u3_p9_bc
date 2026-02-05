@@ -3,6 +3,7 @@ package uce.edu.web.api.matricula.interfaces;
 import jakarta.annotation.security.PermitAll;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
@@ -30,7 +31,7 @@ public class UserResource {
         return Response.status(Response.Status.CREATED).entity(userRepresentation).build();
     }
 
-    @POST
+    @GET
     @Path("validar")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
