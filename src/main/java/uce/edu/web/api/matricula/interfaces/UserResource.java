@@ -31,7 +31,7 @@ public class UserResource {
         return Response.status(Response.Status.CREATED).entity(userRepresentation).build();
     }
 
-    @GET
+    @POST
     @Path("validar")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
