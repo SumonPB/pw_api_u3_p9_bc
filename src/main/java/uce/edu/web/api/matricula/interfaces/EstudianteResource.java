@@ -40,7 +40,9 @@ public class EstudianteResource {
     @GET
     @Path("")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({"admin","user","docente"}) // permisos para acceder al usuario///para varios roles se usa llaves y comas
+    // @RolesAllowed({"admin","user","docente"}) // permisos para acceder al
+    // usuario///para varios roles se usa llaves y comas
+    @PermitAll
     public List<EstudianteRepresentation> listarTodos() {
         System.out.println("LISTAR TODOS XXXXX");
         List<EstudianteRepresentation> list = new ArrayList<>();
@@ -55,7 +57,8 @@ public class EstudianteResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON) // lo que se esta produciendo
     // @PermitAll ->permitir todos
-    @RolesAllowed("admin")
+    // @RolesAllowed("admin")
+    @PermitAll
     public EstudianteRepresentation consultarPorId(@PathParam("id") Integer id) {
         return this.construirLinks(this.estudianteService.consultarPorId(id));
     }
